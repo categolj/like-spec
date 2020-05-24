@@ -55,5 +55,12 @@ jobs:
         EOF
         CURRENT_VERSION=$(grep '<version>' target/generated-sources/openapi/pom.xml | head -n 1 | sed -e 's|<version>||g' -e 's|</version>||g' -e 's| ||g' |  tr -d '\t')
         if [ "${CURRENT_VERSION}" = "$(echo ${CURRENT_VERSION} | grep "\-SNAPSHOT")" ];then
-          ./mvnw -V deploy -s settings.xml -DskipTests=true -DserverId=sonatype-snapshots -f target/generated-sources/openapi/pom.xml
+          ./mvnw -V \
+                 source:jar \
+                 javadoc:jar \
+                 deploy \
+                 -s settings.xml \
+                 -DskipTests=true \
+                 -DserverId=sonatype-snapshots \
+                 -f target/generated-sources/openapi/pom.xml
         fi
