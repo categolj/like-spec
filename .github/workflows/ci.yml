@@ -22,26 +22,38 @@ jobs:
           ${{ runner.os }}-maven-
     - name: generate-sources
       run: |
-        set -e
+        set -ex
         ./mvnw -V generate-sources
-#    - name: deploy-to-sonatype-snapshots
-#      env:
-#        SONATYPE_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
-#        SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
-#      run: |
-#        set -e
-#        cat > settings.xml <<EOF
-#        <settings>
-#          <servers>
-#            <server>
-#               <id>sonatype-snapshots</id>
-#               <username>${SONATYPE_USERNAME}</username>
-#               <password>${SONATYPE_PASSWORD}</password>
-#            </server>
-#          </servers>
-#        </settings>
-#        EOF
-#        CURRENT_VERSION=$(grep '<version>' target/generated-sources/openapi/pom.xml | head -n 1 | sed -e 's|<version>||g' -e 's|</version>||g' -e 's| ||g' |  tr -d '\t')
-#        if [ "${CURRENT_VERSION}" = "$(echo ${CURRENT_VERSION} | grep "\-SNAPSHOT")" ];then
-#          ./mvnw -V deploy -s settings.xml -DskipTests=true -DserverId=sonatype-snapshots -f target/generated-sources/openapi/pom.xml
-#        fi
+        sed 's|</project>||g' target/generated-sources/openapi/pom.xml > pom.txt
+        cat <<'EOF' > distributionManagement.txt
+            <distributionManagement>
+                <repository>
+                    <id>sonatype-snapshots</id>
+                    <name>sonatype-snapshots</name>
+                    <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+                </repository>
+            </distributionManagement>
+        </project>
+        EOF
+        cat pom.txt distributionManagement.txt > target/generated-sources/openapi/pom.xml
+    - name: deploy-to-sonatype-snapshots
+      env:
+        SONATYPE_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
+        SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
+      run: |
+        set -e
+        cat > settings.xml <<EOF
+        <settings>
+          <servers>
+            <server>
+               <id>sonatype-snapshots</id>
+               <username>${SONATYPE_USERNAME}</username>
+               <password>${SONATYPE_PASSWORD}</password>
+            </server>
+          </servers>
+        </settings>
+        EOF
+        CURRENT_VERSION=$(grep '<version>' target/generated-sources/openapi/pom.xml | head -n 1 | sed -e 's|<version>||g' -e 's|</version>||g' -e 's| ||g' |  tr -d '\t')
+        if [ "${CURRENT_VERSION}" = "$(echo ${CURRENT_VERSION} | grep "\-SNAPSHOT")" ];then
+          ./mvnw -V deploy -s settings.xml -DskipTests=true -DserverId=sonatype-snapshots -f target/generated-sources/openapi/pom.xml
+        fi
