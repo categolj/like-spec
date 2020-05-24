@@ -1,0 +1,14 @@
+{
+  "apiPackage": "am.ik.blog.like.spec",
+  "modelPackage": "am.ik.blog.like.spec",
+  "groupId": "am.ik.blog",
+  "artifactId": "like-spec",
+  "dateLibrary": "java8",
+  "delegatePattern": true,
+  "java8": true,
+  "reactive": true,
+  "interfaceOnly": true,
+  "serializableModel": true,
+  "performBeanValidation": true,
+  "snapshotVersion": true
+}

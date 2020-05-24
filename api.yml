@@ -1,0 +1,96 @@
+components:
+  schemas:
+    Like:
+      type: object
+      properties:
+        entryId:
+          format: int64
+          type: integer
+        likeAt:
+          format: date-time
+          type: string
+        likeId:
+          type: string
+    LikeCount:
+      title: LikeCount
+      type: object
+      properties:
+        count:
+          type: integer
+        exists:
+          type: boolean
+info:
+  title: OpenAPI definition
+  version: 0.0.1
+openapi: 3.0.1
+paths:
+  /likes:
+    get:
+      operationId: getLikes
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                items:
+                  $ref: '#/components/schemas/Like'
+                type: array
+              examples:
+                example-1: {}
+          description: OK
+      tags:
+        - like-controller
+  '/likes/{entryId}':
+    delete:
+      operationId: deleteLike
+      parameters:
+        - in: path
+          name: entryId
+          required: true
+          schema:
+            format: int64
+            type: integer
+      responses:
+        '200':
+          description: OK
+      tags:
+        - like-controller
+    get:
+      operationId: getLike
+      parameters:
+        - in: path
+          name: entryId
+          required: true
+          schema:
+            format: int64
+            type: integer
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/LikeCount'
+          description: OK
+      tags:
+        - like-controller
+    post:
+      operationId: postLike
+      parameters:
+        - in: path
+          name: entryId
+          required: true
+          schema:
+            format: int64
+            type: integer
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Like'
+          description: OK
+      tags:
+        - like-controller
+servers:
+  - description: Generated server url
+    url: 'https://like.dev.ik.am'
