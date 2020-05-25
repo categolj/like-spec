@@ -1,7 +1,8 @@
 components:
   schemas:
-    Like:
+    LikeResponse:
       type: object
+      description: ''
       properties:
         entryId:
           format: int64
@@ -11,12 +12,13 @@ components:
           type: string
         likeId:
           type: string
-    LikeCount:
-      title: LikeCount
+          format: uuid
+    LikeCountResponse:
       type: object
       properties:
         count:
           type: integer
+          format: int64
         exists:
           type: boolean
 info:
@@ -30,16 +32,18 @@ paths:
       responses:
         '200':
           content:
-            '*/*':
+            application/json:
               schema:
-                items:
-                  $ref: '#/components/schemas/Like'
                 type: array
+                items:
+                  $ref: '#/components/schemas/LikeResponse'
               examples:
                 example-1: {}
           description: OK
       tags:
         - like-controller
+      description: ''
+      summary: Get all Likes
   '/likes/{entryId}':
     delete:
       operationId: deleteLike
@@ -51,10 +55,13 @@ paths:
             format: int64
             type: integer
       responses:
-        '200':
-          description: OK
+        '204':
+          description: No Content
+        '404':
+          description: Not Found
       tags:
         - like-controller
+      summary: Delete Likes for an entry
     get:
       operationId: getLike
       parameters:
@@ -67,12 +74,15 @@ paths:
       responses:
         '200':
           content:
-            '*/*':
+            application/json:
               schema:
-                $ref: '#/components/schemas/LikeCount'
+                $ref: '#/components/schemas/LikeCountResponse'
           description: OK
+        '404':
+          description: Not Found
       tags:
         - like-controller
+      summary: Get Likes for an entry
     post:
       operationId: postLike
       parameters:
@@ -85,12 +95,13 @@ paths:
       responses:
         '200':
           content:
-            '*/*':
+            application/json:
               schema:
-                $ref: '#/components/schemas/Like'
+                $ref: '#/components/schemas/LikeResponse'
           description: OK
       tags:
         - like-controller
+      summary: Post a Like to an entry
 servers:
   - description: Generated server url
     url: 'https://like.dev.ik.am'
