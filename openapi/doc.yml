@@ -22,7 +22,7 @@ components:
         exists:
           type: boolean
 info:
-  title: OpenAPI definition
+  title: Like API Spec
   version: 0.0.1-SNAPSHOT
 openapi: 3.0.1
 paths:
@@ -41,7 +41,7 @@ paths:
                 example-1: {}
           description: OK
       tags:
-        - like-controller
+        - Like
       description: ''
       summary: Get all Likes
   '/likes/{entryId}':
@@ -60,8 +60,8 @@ paths:
         '404':
           description: Not Found
       tags:
-        - like-controller
-      summary: Delete Likes for an entry
+        - LikeCount
+      summary: Delete the like count for the given entry
     get:
       operationId: getLike
       parameters:
@@ -81,8 +81,8 @@ paths:
         '404':
           description: Not Found
       tags:
-        - like-controller
-      summary: Get Likes for an entry
+        - LikeCount
+      summary: Get the like count for the given entry
     post:
       operationId: postLike
       parameters:
@@ -100,8 +100,8 @@ paths:
                 $ref: '#/components/schemas/LikeResponse'
           description: OK
       tags:
-        - like-controller
-      summary: Post a Like to an entry
+        - LikeCount
+      summary: Increment the like count for the given entry
 servers:
   - description: Laptop
     url: 'http://localhost:8080'
