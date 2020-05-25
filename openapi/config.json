@@ -4,7 +4,7 @@
   "groupId": "am.ik.blog",
   "artifactId": "like-spec",
   "dateLibrary": "java8-localdatetime",
-  "delegatePattern": true,
+  "delegatePattern": false,
   "java8": true,
   "skipDefaultInterface": true,
   "reactive": true,
