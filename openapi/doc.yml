@@ -78,8 +78,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/LikeCountResponse'
           description: OK
-        '404':
-          description: Not Found
       tags:
         - LikeCount
       summary: Get the like count for the given entry
