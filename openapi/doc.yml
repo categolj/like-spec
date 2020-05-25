@@ -103,5 +103,7 @@ paths:
         - like-controller
       summary: Post a Like to an entry
 servers:
-  - description: Generated server url
+  - description: Laptop
+    url: 'http://localhost:8080'
+  - description: Production
     url: 'https://like.dev.ik.am'
