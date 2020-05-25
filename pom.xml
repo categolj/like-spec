@@ -68,6 +68,7 @@
                                     <directory>${project.basedir}/openapi</directory>
                                     <includes>
                                         <include>doc.yml</include>
+                                        <include>swagger-ui.html</include>
                                     </includes>
                                 </resource>
                             </resources>
