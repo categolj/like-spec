@@ -24,8 +24,8 @@
                             <goal>generate</goal>
                         </goals>
                         <configuration>
-                            <inputSpec>${project.basedir}/api.yml</inputSpec>
-                            <configurationFile>${project.basedir}/config.json</configurationFile>
+                            <inputSpec>${project.basedir}/openapi/api.yml</inputSpec>
+                            <configurationFile>${project.basedir}/openapi/config.json</configurationFile>
                             <generatorName>spring</generatorName>
                         </configuration>
                     </execution>
