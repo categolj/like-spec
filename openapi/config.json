@@ -10,6 +10,5 @@
   "reactive": true,
   "interfaceOnly": true,
   "serializableModel": true,
-  "performBeanValidation": true,
-  "snapshotVersion": true
+  "performBeanValidation": true
 }

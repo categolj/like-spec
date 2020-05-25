@@ -23,7 +23,7 @@ components:
           type: boolean
 info:
   title: OpenAPI definition
-  version: 0.0.1
+  version: 0.0.1-SNAPSHOT
 openapi: 3.0.1
 paths:
   /likes:
